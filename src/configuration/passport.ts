@@ -42,7 +42,10 @@ const setupPassport = (app: Express): void => {
     try {
       if (typeof id !== 'number')
         throw new Error('Invalid ID given when deserializing user.');
-      const user = await prisma.user.findUnique({ where: { id } });
+      const user = await prisma.user.findUnique({
+        include: { files: true },
+        where: { id },
+      });
 
       done(null, user);
     } catch (error) {

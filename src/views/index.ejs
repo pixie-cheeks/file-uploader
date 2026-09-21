@@ -1,1 +1,29 @@
 <h1>Hello World!</h1>
+
+<% if (locals.currentUser) { %>
+
+<% const {files} = currentUser %>
+<p>Your files here:</p>
+
+<% if (files.length > 0) { %>
+<ul>
+  <% files.forEach(({name, size, uploadedOn}) => { %>
+  <li>
+    <dl>
+      <dt>Name</dt>
+      <dd><%= name %></dd>
+      <dt>Size</dt>
+      <dd><%= size %></dd>
+      <dt>Uploaded On</dt>
+      <dd><%= uploadedOn %></dd>
+    </dl>
+  </li>
+
+  <% }) %>
+
+</ul>
+<% } else { %>
+<p>No files uploaded! Lol!</p>
+<% } %>
+
+<% } %>
