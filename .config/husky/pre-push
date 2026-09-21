@@ -1,0 +1,15 @@
+echo "Checking for spelling errors..."
+cspell .
+echo "Finished checking for spelling errors!"
+
+echo "Checking for formatting issues..."
+pnpm prettier --check --ignore-unknown .
+echo "Finished checking for formatting issues!"
+
+echo "Checking for typescript issues..."
+tsc
+echo "Finished checking for typescript issues!"
+
+echo "Checking for eslint issues..."
+pnpm eslint --max-warnings 0
+echo "Finished checking for eslint issues!"

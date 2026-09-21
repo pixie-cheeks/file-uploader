@@ -1,0 +1,46 @@
+{
+  "name": "file-uploader",
+  "version": "1.0.0",
+  "main": "src/app.ts",
+  "private": true,
+  "scripts": {
+    "prepare": "husky .config/husky",
+    "eslint": "eslint --config .config/eslint.ts",
+    "prettier": "prettier --config .config/prettier/config.ts --ignore-path=.gitignore --ignore-path=.config/prettier/ignore",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [],
+  "engines": {
+    "node": "^24.19.0"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.4.2",
+      "onFail": "download"
+    }
+  },
+  "packageManager": "pnpm@12.5.1",
+  "type": "module",
+  "devDependencies": {
+    "@awmottaz/prettier-plugin-void-html": "2.3.0",
+    "@pixie-cheeks/eslint-config": "21.0.0",
+    "@types/node": "26.6.2",
+    "@types/pg": "8.23.1",
+    "cspell": "10.3.3",
+    "eslint": "10.11.0",
+    "husky": "9.1.7",
+    "jiti": "2.7.0",
+    "lint-staged": "17.5.1",
+    "prettier": "3.9.8",
+    "prisma": "7.10.0",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "7.10.0",
+    "@prisma/client": "^7.10.0",
+    "dotenv": "18.0.1",
+    "pg": "8.23.0"
+  }
+}
