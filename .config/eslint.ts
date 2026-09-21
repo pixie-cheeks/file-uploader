@@ -34,7 +34,7 @@ export default defineConfig([
     },
   },
   {
-    files: ['build-project.ts'],
+    files: ['build-project.ts', 'bin/**/*'],
     rules: {
       'import-x/no-extraneous-dependencies': 'off',
       'no-console': 'off',

@@ -4,6 +4,7 @@
   "main": "src/app.ts",
   "private": true,
   "scripts": {
+    "build": "tsx bin/build.ts",
     "prepare": "husky .config/husky",
     "eslint": "eslint --config .config/eslint.ts",
     "prettier": "prettier --config .config/prettier/config.ts --ignore-path=.gitignore --ignore-path=.config/prettier/ignore",
@@ -25,22 +26,31 @@
   "devDependencies": {
     "@awmottaz/prettier-plugin-void-html": "2.3.0",
     "@pixie-cheeks/eslint-config": "21.0.0",
+    "@types/express": "5.0.6",
     "@types/node": "26.6.2",
     "@types/pg": "8.23.1",
+    "@types/shelljs": "0.10.0",
     "cspell": "10.3.3",
+    "ejs-lint": "2.0.1",
     "eslint": "10.11.0",
     "husky": "9.1.7",
     "jiti": "2.7.0",
     "lint-staged": "17.5.1",
     "prettier": "3.9.8",
     "prisma": "7.10.0",
+    "shelljs": "0.10.0",
     "tsx": "4.23.15",
     "typescript": "6.0.3"
   },
   "dependencies": {
     "@prisma/adapter-pg": "7.10.0",
     "@prisma/client": "^7.10.0",
+    "bcryptjs": "3.0.3",
     "dotenv": "18.0.1",
-    "pg": "8.23.0"
+    "ejs": "6.0.1",
+    "express": "5.2.1",
+    "express-ejs-layouts": "2.5.1",
+    "pg": "8.23.0",
+    "zod": "4.6.5"
   }
 }
