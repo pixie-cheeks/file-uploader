@@ -1,13 +1,8 @@
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '../generated/prisma/client.ts';
-import { parsedEnvironment } from './parsedEnvironment.ts';
+import { getConnectionString } from './getConnectionString.ts';
 
-const connectionString =
-  parsedEnvironment.DB_ENV === 'development'
-    ? parsedEnvironment.DATABASE_URL
-    : '';
-
-const adapter = new PrismaPg({ connectionString });
+const adapter = new PrismaPg({ connectionString: await getConnectionString() });
 const prisma = new PrismaClient({ adapter });
 
 export { prisma };

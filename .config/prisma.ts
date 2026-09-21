@@ -1,5 +1,5 @@
 import { defineConfig } from 'prisma/config';
-import { parsedEnvironment } from '../src/lib/parsedEnvironment.ts';
+import { getConnectionString } from '../src/lib/getConnectionString.ts';
 
 export default defineConfig({
   schema: '../prisma/',
@@ -7,9 +7,6 @@ export default defineConfig({
     path: '../prisma/migrations',
   },
   datasource: {
-    url:
-      parsedEnvironment.DB_ENV === 'development'
-        ? process.env.DATABASE_URL
-        : '',
+    url: await getConnectionString(),
   },
 });
