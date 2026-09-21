@@ -1,7 +1,6 @@
 import type { Express } from 'express';
 import { NotFoundError } from '../middleware/errors.ts';
 import { checkAuth, checkUnauth } from '../middleware/auth.ts';
-// import { upload } from '../middleware/multer.ts';
 import {
   getLogout,
   getLoginPage,
@@ -9,12 +8,10 @@ import {
   getSignupPage,
   createUser,
 } from '../controllers/userAuthentication.ts';
+import { createUploadRouter } from './upload.ts';
 
 export const setupRoutes = (app: Express): void => {
-  // app.post('/', upload.single('avatar'), (request, response) => {
-  //   console.log({ file: request.file, body: request.body as object });
-  //   response.redirect('/');
-  // });
+  app.use('/upload', createUploadRouter());
 
   app.get('/log-out', checkAuth, getLogout);
 
