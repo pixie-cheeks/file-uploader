@@ -24,6 +24,12 @@ class UnauthorizedError extends CustomError {
   }
 }
 
+class BadRequestError extends CustomError {
+  constructor(message: string) {
+    super(message, 400, 'BadRequestError');
+  }
+}
+
 const errorHandler = (
   error: CustomError | Error,
   _request: Request,
@@ -48,4 +54,4 @@ const errorHandler = (
   }
 };
 
-export { NotFoundError, UnauthorizedError, errorHandler };
+export { NotFoundError, UnauthorizedError, errorHandler, BadRequestError };
