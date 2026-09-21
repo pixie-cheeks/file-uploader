@@ -1,12 +1,15 @@
-import 'dotenv/config';
 import { defineConfig } from 'prisma/config';
+import { parsedEnvironment } from '../src/lib/parsedEnvironment.ts';
 
 export default defineConfig({
-  schema: './prisma/',
+  schema: '../prisma/',
   migrations: {
-    path: './prisma/migrations',
+    path: '../prisma/migrations',
   },
   datasource: {
-    url: process.env.DATABASE_URL,
+    url:
+      parsedEnvironment.DB_ENV === 'development'
+        ? process.env.DATABASE_URL
+        : '',
   },
 });
