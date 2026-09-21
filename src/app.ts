@@ -8,6 +8,7 @@ import { errorHandler } from './middleware/errors.ts';
 import { parsedEnvironment } from './lib/parsedEnvironment.ts';
 import { setupSessionStore } from './configuration/sessionStore.ts';
 import { setupPassport } from './configuration/passport.ts';
+import { setupRoutes } from './routes/index.ts';
 
 const { PORT } = parsedEnvironment;
 const { dirname } = import.meta;
@@ -29,7 +30,7 @@ app.use(expressLayouts);
 setupSessionStore(app);
 setupPassport(app);
 
-// setupRoutes(app)
+setupRoutes(app);
 app.use(errorHandler);
 
 app.listen(PORT, () => {

@@ -3,5 +3,14 @@
     "overrideConfigFile": ".config/eslint.ts"
   },
   "prettier.ignorePath": ".config/prettier/ignore",
-  "prettier.configPath": ".config/prettier/config.ts"
+  "prettier.configPath": ".config/prettier/config.ts",
+  "files.associations": {
+    "*.ejs": "html"
+  },
+  "htmlhint.options": {
+    "spec-char-escape": false
+  },
+  "[html]": {
+    "editor.defaultFormatter": "besthyhy.ejs-eta-beautify"
+  }
 }
