@@ -1,0 +1,36 @@
+<form action="/sign-up" method="POST" class="form">
+  <%- include('partials/form-errors') %><br>
+  <div class="form__container">
+    <h1 class="form__title">Sign Up</h1><br>
+
+    <div class="form__field">
+      <label for="first_name">First Name</label>
+      <input type="text" name="firstName" id="first_name" class="form__input">
+    </div>
+
+    <div class="form__field">
+      <label for="last_name">Last Name</label>
+      <input type="text" name="lastName" id="last_name" class="form__input">
+    </div>
+
+    <div class="form__field">
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" class="form__input">
+    </div>
+
+    <div class="form__field">
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" class="form__input">
+    </div>
+
+    <div class="form__field">
+      <label for="confirm_password">Confirm Password</label>
+      <input type="password" name="confirmPassword" id="confirm_password" class="form__input">
+    </div>
+
+    <button type="submit" class="btn form__btn">Signup</button>
+
+    <p class="form__help-text">Already have an account? <a href="/log-in" class="link">Log In</a></p>
+  </div>
+
+</form>

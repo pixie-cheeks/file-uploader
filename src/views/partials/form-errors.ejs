@@ -1,0 +1,17 @@
+<% if (locals.errors) {%>
+<script id="error-data" type="application/json">
+  <%- JSON.stringify(errors) %>
+</script>
+<% if (locals.givenBody) { %>
+<script id="given-data" type="application/json">
+  <%- JSON.stringify(givenBody) %>
+</script>
+<% } %>
+<script type="module" src="/scripts/formErrors.js"></script>
+
+<ul class="form__error-list">
+  <% errors.forEach(function(error) { %>
+  <li><%= error.message %></li>
+  <% }); %>
+</ul>
+<% } %>

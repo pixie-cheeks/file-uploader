@@ -2,6 +2,16 @@
   <div class="page__container header__container">
     <a href="/" aria-label="Home page" class="header__logo-container link">Home</a>
 
+    <nav class="header__nav" id="js-nav-list">
+      <ul class="header__list">
+        <% if (locals.currentUser) { %>
+        <li class="header__list-item"><a href="/log-out" class="header__nav-link link">Log Out</a></li>
+        <% } else { %>
+        <li class="header__list-item"><a href="/sign-up" class="header__nav-link link">Sign Up</a></li>
+        <li class="header__list-item"><a href="/log-in" class="header__nav-link link">Log In</a></li>
+        <% } %>
+      </ul>
+    </nav>
   </div>
 
 </header>
