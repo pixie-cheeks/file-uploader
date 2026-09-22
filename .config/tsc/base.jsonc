@@ -1,4 +1,5 @@
 {
+  "$schema": "https://www.schemastore.org/tsconfig",
   "compilerOptions": {
     "target": "ESNext",
     "lib": ["ESNext", "DOM"],
@@ -21,6 +22,6 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowImportingTsExtensions": true,
-    "rewriteRelativeImportExtensions": true
-  }
+    "rewriteRelativeImportExtensions": true,
+  },
 }

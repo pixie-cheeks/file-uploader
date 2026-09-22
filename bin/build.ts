@@ -12,7 +12,7 @@ shell.exec('prisma generate');
 console.log('Generated!');
 
 console.log('Build JS files from TS files.');
-shell.exec('tsc -p .config/tsconfig.build.json');
+shell.exec('tsc -p .config/tsc/build.jsonc');
 console.log('Done building JS files.');
 
 // console.log('Build styles with postcss.');

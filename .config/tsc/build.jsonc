@@ -1,0 +1,9 @@
+{
+  "$schema": "https://www.schemastore.org/tsconfig",
+  "extends": "./base.jsonc",
+  "compilerOptions": {
+    "rootDir": "../../src",
+    "outDir": "../../dist",
+  },
+  "include": ["../../src/**/*"],
+}
