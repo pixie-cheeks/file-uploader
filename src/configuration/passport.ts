@@ -9,6 +9,7 @@ import { prisma } from '../lib/prisma.ts';
 const strategy = new LocalStrategy(async (username, password, done) => {
   try {
     const user = await prisma.user.findUnique({
+      include: { files: true },
       where: { username: username.trim() },
     });
 
@@ -54,6 +55,7 @@ const setupPassport = (app: Express): void => {
   });
 
   app.use((request, response, next) => {
+    if (request.user) request.authenticatedUser = request.user;
     response.locals.currentUser = request.user;
     next();
   });

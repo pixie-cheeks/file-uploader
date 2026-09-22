@@ -3,12 +3,14 @@ import { loginSchema, uniqueUserCreationSchema } from '../schemas/user.ts';
 import { hashPassword } from '../lib/passwordUtilities.ts';
 import { prisma } from '../lib/prisma.ts';
 
+type BodyRequest = Request<unknown, unknown, Record<string, string>>;
+
 const getSignupPage = (_request: Request, response: Response): void => {
   response.render('sign-up', { title: 'Sign Up' });
 };
 
 const createUser = async (
-  request: Request,
+  request: BodyRequest,
   response: Response,
   next: NextFunction,
 ): Promise<void> => {
@@ -20,7 +22,7 @@ const createUser = async (
     response.status(400).render('sign-up', {
       title: 'Sign Up',
       errors: parseResult.error.issues,
-      givenBody: request.body as object,
+      givenBody: request.body,
     });
     return;
   }
@@ -44,7 +46,7 @@ const createUser = async (
 };
 
 const postLoginPage = async (
-  request: Request,
+  request: BodyRequest,
   response: Response,
   next: NextFunction,
 ): Promise<void> => {
@@ -54,7 +56,7 @@ const postLoginPage = async (
     response.status(400).render('log-in', {
       title: 'Log In',
       errors: parseResults.error.issues,
-      givenBody: request.body as object,
+      givenBody: request.body,
     });
     return;
   }
