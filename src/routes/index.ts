@@ -9,8 +9,10 @@ import {
   createUser,
 } from '../controllers/userAuthentication.ts';
 import { createUploadRouter } from './upload.ts';
+import { createDownloadRouter } from './download.ts';
 
 export const setupRoutes = (app: Express): void => {
+  app.use('/download', createDownloadRouter());
   app.use('/upload', createUploadRouter());
 
   app.get('/log-out', checkAuth, getLogout);

@@ -7,7 +7,7 @@
 
 <% if (files.length > 0) { %>
 <ul>
-  <% files.forEach(({name, size, uploadedOn}) => { %>
+  <% files.forEach(({id, name, size, uploadedOn}) => { %>
   <li>
     <dl>
       <dt>Name</dt>
@@ -17,6 +17,7 @@
       <dt>Uploaded On</dt>
       <dd><%= uploadedOn %></dd>
     </dl>
+    <a href="/download/file?id=<%= id %>">Download</a>
   </li>
 
   <% }) %>
