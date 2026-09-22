@@ -30,6 +30,7 @@ const createUser = async (
   const { confirmPassword, password, ...userData } = parseResult.data;
 
   const user = await prisma.user.create({
+    include: { files: true },
     data: {
       ...userData,
       password: await hashPassword(password),
@@ -62,6 +63,7 @@ const postLoginPage = async (
   }
 
   const user = await prisma.user.findUnique({
+    include: { files: true },
     where: { username: parseResults.data.username },
   });
 
