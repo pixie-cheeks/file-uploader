@@ -6,6 +6,8 @@
     "module": "NodeNext",
     "allowJs": true,
     "checkJs": true,
+    // Makes typechecking faster at the cost of not checking any *.d.ts files
+    "skipLibCheck": true,
 
     /* Bundler mode */
     "moduleResolution": "nodenext",
