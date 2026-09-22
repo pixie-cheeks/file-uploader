@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsx bin/build.ts",
     "prepare": "husky .config/husky",
-    "eslint": "eslint --config .config/eslint.ts",
+    "eslint": "eslint --config .config/eslint.ts --max-warnings 0",
     "prettier": "prettier --config .config/prettier/config.ts --ignore-path=.gitignore --ignore-path=.config/prettier/ignore",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -15,5 +15,5 @@ tsc
 echo "Finished checking for typescript issues!"
 
 echo "Checking for eslint issues..."
-pnpm eslint --max-warnings 0
+pnpm eslint
 echo "Finished checking for eslint issues!"
