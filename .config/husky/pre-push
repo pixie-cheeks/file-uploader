@@ -1,3 +1,7 @@
+echo "Check ejs files for errors"
+ejslint src/**/*.ejs
+echo "Done checking ejs files for errors"
+
 echo "Checking for spelling errors..."
 cspell .
 echo "Finished checking for spelling errors!"
