@@ -1,10 +1,11 @@
 model User {
-  id        Int    @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   firstName String
   lastName  String
-  username  String @unique
+  username  String   @unique
   password  String
   files     File[]
+  folders   Folder[]
 }
 
 model File {
@@ -16,4 +17,19 @@ model File {
   uploadedOn DateTime @default(now())
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     Int
+  folder     Folder?  @relation(fields: [folderId], references: [id])
+  folderId   Int?
+}
+
+model Folder {
+  id             Int      @id @default(autoincrement())
+  name           String
+  uploadedOn     DateTime @default(now())
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         Int
+  files          File[]
+  parentFolder   Folder?  @relation("FolderHierarchy", fields: [parentFolderId], references: [id])
+  subFolders     Folder[] @relation("FolderHierarchy")
+  parentFolderId Int?
+  isShared       Boolean  @default(false)
 }

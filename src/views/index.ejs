@@ -3,6 +3,9 @@
 <% if (locals.currentUser) { %>
 
 <% const {files} = currentUser %>
+<a href="/upload/folder">Add a Folder</a>
+<a href="/upload/file">Upload a New File</a>
+
 <p>Your files here:</p>
 
 <% if (files.length > 0) { %>
