@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "build": "tsx bin/build.ts",
+    "dev": "tsx --watch .",
     "prepare": "husky .config/husky",
     "eslint": "eslint --config .config/eslint.ts --max-warnings 0",
     "prettier": "prettier --config .config/prettier/config.ts --ignore-path=.gitignore --ignore-path=.config/prettier/ignore",
