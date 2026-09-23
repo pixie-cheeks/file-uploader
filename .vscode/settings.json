@@ -5,6 +5,7 @@
   "prettier.ignorePath": ".config/prettier/ignore",
   "prettier.configPath": ".config/prettier/config.ts",
   "files.associations": {
+    ".config/babel.ts": "babel",
     "*.ejs": "html"
   },
   "htmlhint.options": {

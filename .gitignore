@@ -4,3 +4,4 @@ src/generated
 dist
 uploads
 src/public/uploads
+src/public/scripts

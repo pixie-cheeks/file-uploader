@@ -15,6 +15,10 @@ console.log('Build JS files from TS files.');
 shell.exec('tsc -p .config/tsc/build.jsonc', { fatal: true });
 console.log('Done building JS files.');
 
+console.log('Build browser scripts with Babel');
+shell.exec('pnpm build:js');
+console.log('Done building');
+
 // console.log('Build styles with postcss.');
 // shell.exec(
 //   'postcss src/styles/style.css --dir src/public/styles --map --env production',

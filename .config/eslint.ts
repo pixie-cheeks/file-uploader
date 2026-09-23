@@ -4,7 +4,7 @@ import { defineConfig } from 'eslint/config';
 
 export default defineConfig([
   { files: ['**/*.{ts,js}'] },
-  { ignores: ['dist', 'src/generated'] },
+  { ignores: ['dist', 'src/generated', 'src/public/scripts'] },
   ...pixie.typescript,
   {
     languageOptions: {
@@ -41,12 +41,12 @@ export default defineConfig([
     },
   },
   {
-    files: ['src/public/**/*'],
-
+    files: ['src/browser/**/*'],
     languageOptions: {
       globals: pixie.globals.browser,
     },
     rules: {
+      'import-x/no-unresolved': 'off',
       'n/no-unsupported-features/node-builtins': 'off',
       'no-console': ['error', { allow: ['warn', 'error'] }],
     },
