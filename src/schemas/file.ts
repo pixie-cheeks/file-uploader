@@ -13,6 +13,20 @@ export const fileUploadSchema = z.object({
     .optional(),
 });
 
+const requestNumber = z.string().trim().nonempty().transform(Number);
+
+export const fileEditSchema = z
+  .object({
+    name: z.string().trim().nonempty(),
+    type: z.string().trim().nonempty(),
+    uploadedOn: z.date(),
+    mimetype: z.string().trim().nonempty(),
+    userId: requestNumber.pipe(z.number().gte(1)),
+    path: z.string().trim().nonempty(),
+    size: requestNumber.pipe(z.number().gte(0)),
+  })
+  .partial();
+
 export const folderAddSchema = z.object({
   parentFolderId: z
     .string()

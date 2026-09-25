@@ -3,8 +3,6 @@ import * as z from 'zod';
 import { folderAddSchema } from '../schemas/file.ts';
 import { BadRequestError, NotFoundError } from '../middleware/errors.ts';
 import { prisma } from '../lib/prisma.ts';
-// import { prisma } from '../lib/prisma.ts';
-// import { BadRequestError } from '../middleware/errors.ts';
 
 const idParamaterSchema = z.object({
   id: z.string().trim().nonempty().transform(Number).pipe(z.number().gte(1)),
