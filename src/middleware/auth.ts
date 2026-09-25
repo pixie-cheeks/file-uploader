@@ -1,5 +1,4 @@
 import type { NextFunction, Request, Response } from 'express';
-import { UnauthorizedError } from './errors.ts';
 
 const checkUnauth = (
   request: Request,
@@ -11,12 +10,12 @@ const checkUnauth = (
     return;
   }
 
-  response.redirect('/');
+  response.redirect('/home');
 };
 
 const checkAuth = (
   request: Request,
-  _response: Response,
+  response: Response,
   next: NextFunction,
 ): void => {
   if (request.isAuthenticated()) {
@@ -24,7 +23,7 @@ const checkAuth = (
     return;
   }
 
-  throw new UnauthorizedError('No access. You need to log in!');
+  response.redirect('/');
 };
 
 export { checkAuth, checkUnauth };

@@ -30,11 +30,7 @@ const postFolderUpload: FilledBodyHandler = async (request, response) => {
   const parseResults = folderAddSchema.safeParse(request.body);
 
   if (!parseResults.success) {
-    response.render('upload/folder', {
-      title: 'Add Folder',
-      givenBody: request.body,
-      errors: parseResults.error.issues,
-    });
+    response.status(400).send({ errors: parseResults.error.issues });
     return;
   }
 
@@ -49,12 +45,4 @@ const postFolderUpload: FilledBodyHandler = async (request, response) => {
   response.redirect('/');
 };
 
-const getFileUpload: RequestHandler = (_request, response) => {
-  response.render('upload/file', { title: 'Upload File' });
-};
-
-const getFolderUpload: RequestHandler = (_request, response) => {
-  response.render('upload/folder', { title: 'Add Folder' });
-};
-
-export { getFileUpload, postFileUpload, getFolderUpload, postFolderUpload };
+export { postFileUpload, postFolderUpload };

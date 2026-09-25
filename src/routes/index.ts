@@ -9,8 +9,10 @@ import {
   createUser,
 } from '../controllers/userAuthentication.ts';
 import { setupUploadRoutes } from './upload.ts';
+import { setupFolderRoutes } from './folder.ts';
 
 export const setupRoutes = (app: Express): void => {
+  setupFolderRoutes(app);
   setupUploadRoutes(app);
 
   app.get('/log-out', checkAuth, getLogout);
@@ -21,8 +23,8 @@ export const setupRoutes = (app: Express): void => {
   app.post('/sign-up', checkUnauth, createUser);
   app.get('/sign-up', checkUnauth, getSignupPage);
 
-  app.get('/', (_request, response) => {
-    response.render('index', { title: 'home' });
+  app.get('/', checkUnauth, (_request, response) => {
+    response.render('index', { title: 'File Uploader' });
   });
 
   app.get('/*all', (request, _response, next) => {
