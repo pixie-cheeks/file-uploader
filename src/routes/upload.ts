@@ -1,21 +1,15 @@
+import type { Express } from 'express';
 import { Router } from 'express';
-import {
-  getFileUpload,
-  getFolderUpload,
-  postFileUpload,
-  postFolderUpload,
-} from '../controllers/upload.ts';
-import { upload } from '../middleware/multer.ts';
 import { checkAuth } from '../middleware/auth.ts';
+import { postFileUpload } from '../controllers/upload.ts';
+import { upload } from '../middleware/multer.ts';
 
-const router = Router();
+export const setupUploadRoutes = (app: Express): void => {
+  const router = Router();
 
-export const createUploadRouter = (): Router => {
   router.use(checkAuth);
-  router.post('/folder', postFolderUpload);
-  router.get('/folder', getFolderUpload);
-  router.post('/file', upload.single('uploadFile'), postFileUpload);
-  router.get('/file', getFileUpload);
 
-  return router;
+  router.post('/file', upload.single('uploadFile'), postFileUpload);
+
+  app.use('/upload', router);
 };

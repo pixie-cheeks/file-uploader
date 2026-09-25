@@ -23,7 +23,7 @@ const postFileUpload: RequestHandler = async (request, response) => {
       userId: request.authenticatedUser.id,
     },
   });
-  response.redirect('/');
+  response.send({ success: 'done!' });
 };
 
 const postFolderUpload: FilledBodyHandler = async (request, response) => {

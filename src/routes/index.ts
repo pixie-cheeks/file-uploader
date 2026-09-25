@@ -1,4 +1,4 @@
-import type { Express } from 'express';
+import { type Express } from 'express';
 import { NotFoundError } from '../middleware/errors.ts';
 import { checkAuth, checkUnauth } from '../middleware/auth.ts';
 import {
@@ -8,12 +8,10 @@ import {
   getSignupPage,
   createUser,
 } from '../controllers/userAuthentication.ts';
-import { createUploadRouter } from './upload.ts';
-import { createDownloadRouter } from './download.ts';
+import { setupUploadRoutes } from './upload.ts';
 
 export const setupRoutes = (app: Express): void => {
-  app.use('/download', createDownloadRouter());
-  app.use('/upload', createUploadRouter());
+  setupUploadRoutes(app);
 
   app.get('/log-out', checkAuth, getLogout);
 
@@ -28,7 +26,7 @@ export const setupRoutes = (app: Express): void => {
   });
 
   app.get('/*all', (request, _response, next) => {
-    console.log('params:', request.params.all);
+    console.log('path:', request.path);
     next(new NotFoundError('Page not found'));
   });
 };

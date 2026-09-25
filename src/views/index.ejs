@@ -6,6 +6,18 @@
 <a href="/upload/folder">Add a Folder</a>
 <a href="/upload/file">Upload a New File</a>
 
+<h1>Upload a file!</h1>
+
+<form action="/upload/file" method="post" enctype="multipart/form-data">
+  <div class="form__field">
+    <label for="upload-file">File to Upload</label>
+    <input type="file" id="upload-file" name="uploadFile" class="form__input" />
+  </div>
+
+  <button type="submit">Upload</button>
+</form>
+
+
 <p>Your files here:</p>
 
 <% if (files.length > 0) { %>
