@@ -12,6 +12,7 @@ echo "Finished checking for formatting issues!"
 
 echo "Checking for typescript issues..."
 tsc
+tsc -p src/browser/tsconfig.json
 echo "Finished checking for typescript issues!"
 
 echo "Checking for eslint issues..."
