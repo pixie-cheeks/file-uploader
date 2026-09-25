@@ -2,12 +2,7 @@ import type { RequestHandler } from 'express';
 import { prisma } from '../lib/prisma.ts';
 import { BadRequestError } from '../middleware/errors.ts';
 import { folderAddSchema } from '../schemas/file.ts';
-
-type FilledBodyHandler = RequestHandler<
-  unknown,
-  unknown,
-  Record<string, string>
->;
+import type { FilledBodyHandler } from '../lib/types.ts';
 
 const postFileUpload: RequestHandler = async (request, response) => {
   if (!request.file) throw new BadRequestError('File not uploaded');

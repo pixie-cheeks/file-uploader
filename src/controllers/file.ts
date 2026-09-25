@@ -1,40 +1,44 @@
 import path from 'node:path';
-import type { RequestHandler } from 'express';
-import * as z from 'zod';
-import { fileEditSchema, fileDownloadSchema } from '../schemas/file.ts';
+import { fileEditSchema, idParamaterSchema } from '../schemas/file.ts';
 import {
   BadRequestError,
   NotFoundError,
   UnauthorizedError,
 } from '../middleware/errors.ts';
 import { prisma } from '../lib/prisma.ts';
+import type { FileRouteHandler, FilledBodyHandler } from '../lib/types.ts';
 
-const idParamaterSchema = z.object({
-  id: z.string().trim().nonempty().transform(Number).pipe(z.number().gte(1)),
-});
-
-const deleteFile: RequestHandler = async (request, response) => {
+const fileRouteMiddleware: FilledBodyHandler = async (
+  request,
+  response,
+  next,
+) => {
   const parsedParameters = idParamaterSchema.safeParse(request.params);
   if (!parsedParameters.success) {
     throw new BadRequestError('Invalid file ID given.');
   }
+
   const { id } = parsedParameters.data;
   const file = await prisma.file.findUnique({ where: { id } });
   if (!file) throw new NotFoundError('No file with this ID found.');
 
-  await prisma.file.delete({ where: { id } });
+  if (file.userId !== request.authenticatedUser.id)
+    throw new UnauthorizedError(
+      'You do not have the privileges to access this file',
+    );
+
+  request.body.params = parsedParameters.data;
+  response.locals.file = file;
+  next();
+};
+
+const deleteFile: FileRouteHandler = async (request, response) => {
+  await prisma.file.delete({ where: { id: request.params.id } });
+
   response.send({ success: true });
 };
 
-const patchFile: RequestHandler = async (request, response) => {
-  const parsedParameters = idParamaterSchema.safeParse(request.params);
-  if (!parsedParameters.success) {
-    throw new BadRequestError('Invalid file ID given.');
-  }
-  const { id } = parsedParameters.data;
-  const file = await prisma.file.findUnique({ where: { id } });
-  if (!file) throw new NotFoundError('No file with this ID found.');
-
+const patchFile: FileRouteHandler = async (request, response) => {
   const parseResults = fileEditSchema.safeParse(request.body);
   if (!parseResults.success) {
     response.status(400).send({ errors: parseResults.error.issues });
@@ -42,26 +46,15 @@ const patchFile: RequestHandler = async (request, response) => {
   }
 
   await prisma.file.update({
-    where: { id },
+    where: { id: request.params.id },
     data: parseResults.data,
   });
 
   response.send({ success: true });
 };
 
-const getFile: RequestHandler = async (request, response) => {
-  const parseResults = fileDownloadSchema.safeParse(request.query);
-  if (!parseResults.success) throw new BadRequestError('Invalid ID given');
-
-  const file = await prisma.file.findUnique({
-    where: { id: parseResults.data.id },
-  });
-  if (!file) throw new BadRequestError('File with this ID does not exist');
-
-  if (file.userId !== request.authenticatedUser.id)
-    throw new UnauthorizedError(
-      'You do not have the privileges to access this file',
-    );
+const getFile: FileRouteHandler = (_request, response) => {
+  const { file } = response.locals;
 
   response.download(
     path.join(import.meta.dirname, '../..', file.path),
@@ -69,4 +62,4 @@ const getFile: RequestHandler = async (request, response) => {
   );
 };
 
-export { getFile, patchFile, deleteFile };
+export { getFile, patchFile, deleteFile, fileRouteMiddleware };
