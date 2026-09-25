@@ -9,7 +9,7 @@ import { prisma } from '../lib/prisma.ts';
 const strategy = new LocalStrategy(async (username, password, done) => {
   try {
     const user = await prisma.user.findUnique({
-      include: { files: true },
+      include: { files: true, folders: true },
       where: { username: username.trim() },
     });
 
@@ -44,7 +44,7 @@ const setupPassport = (app: Express): void => {
       if (typeof id !== 'number')
         throw new Error('Invalid ID given when deserializing user.');
       const user = await prisma.user.findUnique({
-        include: { files: true },
+        include: { files: true, folders: true },
         where: { id },
       });
 

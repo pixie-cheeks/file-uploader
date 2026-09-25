@@ -1,6 +1,7 @@
 import type {
   User as CustomUser,
   File,
+  Folder,
 } from '../../generated/prisma/client.ts';
 
 export {};
@@ -13,6 +14,7 @@ declare global {
   namespace Express {
     export interface User extends CustomUser {
       files: File[];
+      folders: Folder[];
     }
 
     interface Request {
