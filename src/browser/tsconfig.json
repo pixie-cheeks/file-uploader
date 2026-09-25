@@ -1,4 +1,7 @@
 {
   "extends": "../../.config/tsc/lint.jsonc",
+  "compilerOptions": {
+    "lib": ["DOM", "ESNext"]
+  },
   "include": ["./**/*"]
 }
