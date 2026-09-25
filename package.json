@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsx bin/build.ts",
     "build:js": "pnpm babel src/browser/scripts -d src/public/scripts",
-    "dev": "concurrently --kill-others --names Server,JS 'pnpm watch:server' 'pnpm watch:js'",
+    "dev": "concurrently --kill-others --names \"Server,JS,Prisma Studio,Prisma Generate\" 'pnpm watch:server' 'pnpm watch:js' 'pnpm prisma studio' 'pnpm prisma generate --watch'",
     "watch:server": "tsx --watch .",
     "watch:js": "pnpm build:js --watch",
     "prepare": "husky .config/husky",
