@@ -27,7 +27,7 @@ const fileRouteMiddleware: FilledBodyHandler = async (
       'You do not have the privileges to access this file',
     );
 
-  request.body.params = parsedParameters.data;
+  request.params = parsedParameters.data;
   response.locals.file = file;
   next();
 };

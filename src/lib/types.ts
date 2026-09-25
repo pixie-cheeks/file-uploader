@@ -18,3 +18,10 @@ export type FileRouteHandler = RequestHandler<
   unknown,
   { file: File }
 >;
+
+export type FolderRouteHandler = RequestHandler<
+  z.infer<typeof idParamaterSchema>,
+  unknown,
+  unknown,
+  unknown
+>;

@@ -1,14 +1,18 @@
-import type { RequestHandler } from 'express';
-import * as z from 'zod';
-import { folderAddSchema } from '../schemas/file.ts';
-import { BadRequestError, NotFoundError } from '../middleware/errors.ts';
+import { type RequestHandler } from 'express';
+import { folderAddSchema, idParamaterSchema } from '../schemas/file.ts';
+import {
+  BadRequestError,
+  NotFoundError,
+  UnauthorizedError,
+} from '../middleware/errors.ts';
 import { prisma } from '../lib/prisma.ts';
+import type { FilledBodyHandler, FolderRouteHandler } from '../lib/types.ts';
 
-const idParamaterSchema = z.object({
-  id: z.string().trim().nonempty().transform(Number).pipe(z.number().gte(1)),
-});
-
-const deleteFolder: RequestHandler = async (request, response) => {
+const folderRouteMiddleware: FilledBodyHandler = async (
+  request,
+  _response,
+  next,
+) => {
   const parsedParameters = idParamaterSchema.safeParse(request.params);
   if (!parsedParameters.success) {
     throw new BadRequestError('Invalid folder ID given.');
@@ -17,19 +21,22 @@ const deleteFolder: RequestHandler = async (request, response) => {
   const folder = await prisma.folder.findUnique({ where: { id } });
   if (!folder) throw new NotFoundError('No folder with this ID found.');
 
-  await prisma.folder.delete({ where: { id } });
+  if (folder.userId !== request.authenticatedUser.id)
+    throw new UnauthorizedError(
+      'You do not have the privileges to access this file',
+    );
+
+  request.params = parsedParameters.data;
+  next();
+};
+
+const deleteFolder: FolderRouteHandler = async (request, response) => {
+  await prisma.folder.delete({ where: { id: request.params.id } });
+
   response.send({ success: true });
 };
 
-const patchFolder: RequestHandler = async (request, response) => {
-  const parsedParameters = idParamaterSchema.safeParse(request.params);
-  if (!parsedParameters.success) {
-    throw new BadRequestError('Invalid folder ID given.');
-  }
-  const { id } = parsedParameters.data;
-  const folder = await prisma.folder.findUnique({ where: { id } });
-  if (!folder) throw new NotFoundError('No folder with this ID found.');
-
+const patchFolder: FolderRouteHandler = async (request, response) => {
   const parseResults = folderAddSchema.safeParse(request.body);
   if (!parseResults.success) {
     response.status(400).send({ errors: parseResults.error.issues });
@@ -37,7 +44,7 @@ const patchFolder: RequestHandler = async (request, response) => {
   }
 
   await prisma.folder.update({
-    where: { id },
+    where: { id: request.params.id },
     data: { name: parseResults.data.name },
   });
 
@@ -51,4 +58,10 @@ const getHomeFolder: RequestHandler = (_request, response) => {
   response.render('folder/home', { title: 'Home' });
 };
 
-export { getHomeFolder, getFolder, patchFolder, deleteFolder };
+export {
+  getHomeFolder,
+  getFolder,
+  patchFolder,
+  deleteFolder,
+  folderRouteMiddleware,
+};
